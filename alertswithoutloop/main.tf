@@ -1,10 +1,10 @@
-resource "newrelic_alert_policy" "foo" {
-  name = "foo"
+resource "newrelic_alert_policy" "abhi" {
+  name = "abhi"
 }
 
-resource "newrelic_nrql_alert_condition" "foo" {
-  account_id                     = 4043634
-  policy_id                      = newrelic_alert_policy.foo.id
+resource "newrelic_nrql_alert_condition" "abhi" {
+  account_id                     = 4048596
+  policy_id                      = newrelic_alert_policy.abhi.id
   type                           = "static"
   name                           = "foo"
   description                    = "Alert when transactions are taking too long"

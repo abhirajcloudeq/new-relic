@@ -1,13 +1,12 @@
-resource "newrelic_alert_policy" "myalert" {
-  name = "myalert"
+resource "newrelic_alert_policy" "my_policy" {
+  name = "my_policy"
 }
 
-resource "newrelic_nrql_alert_condition" "myalert" {
-
+resource "newrelic_nrql_alert_condition" "foo" {
   for_each = var.condition
 
   account_id                     = each.value.account_id
-  policy_id                      = newrelic_alert_policy.foo.id
+  policy_id                      = newrelic_alert_policy.my_policy.id
   type                           = each.value.type
   name                           = each.value.name
   description                    = each.value.description
@@ -23,24 +22,23 @@ resource "newrelic_nrql_alert_condition" "myalert" {
   open_violation_on_expiration   = each.value.open_violation_on_expiration
   close_violations_on_expiration = each.value.close_violations_on_expiration
   slide_by                       = each.value.slide_by
-  baseline_direction             = each.value.baseline_direction
 
 
   nrql {
-    query = each.value.query
+    query = each.value.nrql
   }
 
   critical {
-    operator              = each.value.operator
-    threshold             = each.value.threshold
-    threshold_duration    = each.value.threshold_duration
-    threshold_occurrences = each.value.threshold_occurrences
+    operator              = each.value.critical.operator
+    threshold             = each.value.critical.threshold
+    threshold_duration    = each.value.critical.threshold_duration
+    threshold_occurrences = each.value.critical.threshold_occurrences
   }
 
   warning {
-    operator              = each.value.operator
-    threshold             = each.value.threshold
-    threshold_duration    = each.value.threshold_duration
-    threshold_occurrences = each.value.threshold_occurrences
+    operator              = each.value.warning.operator
+    threshold             = each.value.warning.threshold
+    threshold_duration    = each.value.warning.threshold_duration
+    threshold_occurrences = each.value.warning.threshold_occurrences
   }
 }
